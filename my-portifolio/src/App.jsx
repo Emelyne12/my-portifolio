@@ -1,192 +1,187 @@
-import { useState } from 'react'
 import {
-	ArrowRight,
-	BriefcaseBusiness,
-	Download,
-	Mail,
-	Menu,
-	Smartphone,
-	Sparkles,
-	UserRound,
-	X,
-} from 'lucide-react'
+	AppBar,
+	Avatar,
+	Box,
+	Button,
+	Chip,
+	Container,
+	CssBaseline,
+	Grid,
+	Stack,
+	Toolbar,
+	Typography,
+	createTheme,
+	ThemeProvider,
+} from '@mui/material'
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
+import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
+import { Card, Col, Divider, Progress, Row, Space, Statistic, Tag, Timeline } from 'antd'
+import { CodeOutlined, MobileOutlined, ProjectOutlined } from '@ant-design/icons'
 
-const navLinks = [
-	{ label: 'Home', href: '#home' },
-	{ label: 'About', href: '#about' },
-	{ label: 'Projects', href: '#projects' },
-	{ label: 'Contact', href: '#contact' },
-]
+const theme = createTheme({
+	palette: {
+		primary: { main: '#c2185b' },
+		secondary: { main: '#8e24aa' },
+		background: { default: '#fff7fb', paper: '#ffffff' },
+	},
+	shape: { borderRadius: 14 },
+})
 
-const projects = [
+const projectItems = [
 	{
 		title: 'Personal Portfolio',
-		description: 'A modern, responsive portfolio showcasing my skills, projects, and journey.',
-		icon: Sparkles,
+		icon: <ProjectOutlined style={{ fontSize: 20, color: '#c2185b' }} />,
+		description: 'A modern and responsive portfolio that presents my experience and work clearly.',
+		tag: 'React',
 	},
 	{
 		title: 'Business Website',
-		description: 'A clean, professional website built for a local business to reach more clients.',
-		icon: BriefcaseBusiness,
+		icon: <CodeOutlined style={{ fontSize: 20, color: '#8e24aa' }} />,
+		description: 'A clean business website focused on trust, readability, and conversion.',
+		tag: 'UI/UX',
 	},
 	{
-		title: 'Mobile-Friendly Design',
-		description: 'Beautiful and accessible designs that look great on all devices.',
-		icon: Smartphone,
+		title: 'Mobile-First Design',
+		icon: <MobileOutlined style={{ fontSize: 20, color: '#3949ab' }} />,
+		description: 'Responsive interfaces optimized for phones, tablets, and desktop screens.',
+		tag: 'Responsive',
 	},
 ]
 
 function App() {
-	const [menuOpen, setMenuOpen] = useState(false)
-
 	return (
-		<div className="min-h-screen bg-pink-50 text-slate-800">
-			<header className="sticky top-0 z-50 border-b border-pink-200 bg-pink-600/95 backdrop-blur">
-				<nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-					<h2 className="text-2xl font-bold text-white">Emelyne</h2>
-
-					<button
-						type="button"
-						onClick={() => setMenuOpen((prev) => !prev)}
-						className="rounded-md p-2 text-white md:hidden"
-						aria-label="Toggle menu"
-					>
-						{menuOpen ? <X size={22} /> : <Menu size={22} />}
-					</button>
-
-					<ul className="hidden items-center gap-6 md:flex">
-						{navLinks.map((link) => (
-							<li key={link.label}>
-								<a className="text-white transition hover:text-pink-100" href={link.href}>
-									{link.label}
-								</a>
-							</li>
-						))}
-						<li>
-							<a
-								href="/cv.pdf"
-								download
-								className="inline-flex items-center gap-2 rounded-full bg-pink-400 px-4 py-2 text-sm font-semibold text-white transition hover:bg-pink-300"
-							>
-								<Download size={16} />
-								Download CV
-							</a>
-						</li>
-					</ul>
-				</nav>
-
-				{menuOpen && (
-					<div className="border-t border-pink-500 bg-pink-600 px-5 pb-4 md:hidden">
-						<ul className="space-y-3 pt-4">
-							{navLinks.map((link) => (
-								<li key={link.label}>
-									<a
-										className="block text-white"
-										href={link.href}
-										onClick={() => setMenuOpen(false)}
-									>
-										{link.label}
-									</a>
-								</li>
-							))}
-							<li>
-								<a
-									href="/cv.pdf"
-									download
-									className="inline-flex items-center gap-2 rounded-full bg-pink-400 px-4 py-2 text-sm font-semibold text-white"
-								>
-									<Download size={16} />
-									Download CV
-								</a>
-							</li>
-						</ul>
-					</div>
-				)}
-			</header>
-
-			<main>
-				<section
-					id="home"
-					className="flex min-h-[80vh] items-center justify-center bg-gradient-to-r from-pink-200 to-pink-100 px-5 py-16 text-center"
-				>
-					<div className="max-w-3xl space-y-5">
-						<h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">
-							Hello, I&apos;m <span className="text-pink-600">NIYOMUBYEYI INGABIRE EMELYNE</span>
-						</h1>
-						<p className="text-lg text-slate-700 sm:text-xl">
-							A Passionate <strong>Web Designer</strong> &amp; <strong>Frontend Developer</strong>
-						</p>
-						<a
-							href="#about"
-							className="inline-flex items-center gap-2 rounded-full bg-pink-500 px-6 py-3 font-semibold text-white transition hover:bg-pink-600"
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+				<AppBar position="sticky" elevation={0} sx={{ bgcolor: 'primary.main' }}>
+					<Toolbar sx={{ justifyContent: 'space-between' }}>
+						<Typography variant="h6" fontWeight={700}>
+							Emelyne Portfolio
+						</Typography>
+						<Button
+							color="inherit"
+							variant="outlined"
+							startIcon={<DownloadRoundedIcon />}
+							href="/cv.pdf"
+							download
+							sx={{ borderColor: 'rgba(255,255,255,0.6)' }}
 						>
-							Discover More
-							<ArrowRight size={18} />
-						</a>
-					</div>
-				</section>
+							Download CV
+						</Button>
+					</Toolbar>
+				</AppBar>
 
-				<section id="about" className="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
-					<h2 className="mb-5 text-3xl font-bold text-pink-600">About Me</h2>
-					<p className="mx-auto max-w-3xl leading-8 text-slate-700">
-						I am a creative and detail-oriented Web Designer and Frontend Developer who loves turning
-						ideas into stunning, functional websites. My goal is to design digital experiences that are
-						not only visually beautiful but also easy to use, responsive, and meaningful.
-						<br />
-						<br />
-						With a heart for innovation and a passion for technology, I strive to build solutions that
-						empower people and create impact.
-					</p>
-				</section>
-
-				<section id="projects" className="bg-pink-100 px-5 py-16 sm:px-8">
-					<div className="mx-auto max-w-6xl">
-						<h2 className="mb-8 text-center text-3xl font-bold text-pink-600">My Projects</h2>
-						<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-							{projects.map((project) => {
-								const Icon = project.icon
-
-								return (
-									<article
-										key={project.title}
-										className="rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1"
-									>
-										<div className="mb-4 inline-flex rounded-full bg-pink-100 p-3 text-pink-600">
-											<Icon size={22} />
-										</div>
-										<h3 className="mb-2 text-xl font-semibold text-slate-900">{project.title}</h3>
-										<p className="text-slate-700">{project.description}</p>
-									</article>
-								)
-							})}
-						</div>
-					</div>
-				</section>
-
-				<section id="contact" className="mx-auto max-w-5xl px-5 py-16 text-center sm:px-8">
-					<h2 className="mb-4 text-3xl font-bold text-pink-600">Let&apos;s Connect</h2>
-					<p className="mx-auto mb-6 max-w-2xl text-slate-700">
-						I&apos;d love to hear from you! Whether you have a project in mind, want to collaborate, or
-						just want to say hi, feel free to reach out.
-					</p>
-					<a
-						href="mailto:ingabiremelyne1234@gmail.com"
-						className="inline-flex items-center gap-2 rounded-full bg-pink-500 px-6 py-3 font-semibold text-white transition hover:bg-pink-600"
+				<Container maxWidth="lg" sx={{ py: { xs: 6, md: 9 } }}>
+					<Box
+						sx={{
+							p: { xs: 3, md: 5 },
+							borderRadius: 4,
+							background: 'linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%)',
+							mb: 5,
+						}}
 					>
-						<Mail size={18} />
-						ingabiremelyne1234@gmail.com
-					</a>
-				</section>
-			</main>
+						<Stack spacing={2} alignItems="center" textAlign="center">
+							<Avatar sx={{ width: 70, height: 70, bgcolor: 'secondary.main', fontWeight: 700 }}>E</Avatar>
+							<Typography variant="h3" fontWeight={700} sx={{ fontSize: { xs: 30, md: 42 } }}>
+								NIYOMUBYEYI INGABIRE EMELYNE
+							</Typography>
+							<Typography variant="h6" color="text.secondary">
+								Web Designer • Frontend Developer
+							</Typography>
+							<Space wrap>
+								<Tag color="magenta">Material UI</Tag>
+								<Tag color="purple">Ant Design</Tag>
+								<Tag color="blue">React</Tag>
+							</Space>
+						</Stack>
+					</Box>
 
-			<footer className="bg-pink-600 px-5 py-6 text-center text-white">
-				<p className="inline-flex items-center gap-2">
-					Made by NIYOMUBYEYI INGABIRE EMELYNE
-					<UserRound size={16} />
-					© {new Date().getFullYear()}
-				</p>
-			</footer>
-		</div>
+					<Grid container spacing={3} sx={{ mb: 5 }}>
+						<Grid size={{ xs: 12, md: 8 }}>
+							<Card title="About Me" variant="outlined" style={{ borderRadius: 14 }}>
+								<Typography color="text.secondary" sx={{ lineHeight: 1.9 }}>
+									I am a creative and detail-oriented frontend developer who transforms ideas into clean,
+									engaging websites. I focus on responsive layouts, accessible interfaces, and meaningful
+									user experiences that work well on mobile and desktop.
+								</Typography>
+								<Divider style={{ margin: '20px 0' }} />
+								<Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+									<Chip label="React" color="primary" />
+									<Chip label="JavaScript" color="secondary" />
+									<Chip label="Component Libraries" />
+								</Stack>
+							</Card>
+						</Grid>
+						<Grid size={{ xs: 12, md: 4 }}>
+							<Card title="Quick Stats" variant="outlined" style={{ borderRadius: 14 }}>
+								<Row gutter={[16, 16]}>
+									<Col span={12}>
+										<Statistic title="Projects" value={12} />
+									</Col>
+									<Col span={12}>
+										<Statistic title="Clients" value={6} />
+									</Col>
+								</Row>
+								<Divider style={{ margin: '20px 0' }} />
+								<Typography variant="body2" sx={{ mb: 1.5 }}>
+									Frontend Confidence
+								</Typography>
+								<Progress percent={90} strokeColor="#c2185b" />
+							</Card>
+						</Grid>
+					</Grid>
+
+					<Card title="Featured Projects" variant="outlined" style={{ borderRadius: 14, marginBottom: 24 }}>
+						<Row gutter={[16, 16]}>
+							{projectItems.map((project) => (
+								<Col xs={24} md={8} key={project.title}>
+									<Card style={{ borderRadius: 12 }}>
+										<Space direction="vertical" size={8}>
+											{project.icon}
+											<Typography variant="h6" fontWeight={600}>
+												{project.title}
+											</Typography>
+											<Typography color="text.secondary">{project.description}</Typography>
+											<Tag color="geekblue">{project.tag}</Tag>
+										</Space>
+									</Card>
+								</Col>
+							))}
+						</Row>
+					</Card>
+
+					<Card title="Journey" variant="outlined" style={{ borderRadius: 14, marginBottom: 24 }}>
+						<Timeline
+							items={[
+								{ color: 'purple', children: 'Started frontend development with HTML, CSS, and JavaScript.' },
+								{ color: 'magenta', children: 'Built responsive websites and improved design consistency.' },
+								{ color: 'blue', children: 'Now building scalable interfaces with MUI and Ant Design.' },
+							]}
+						/>
+					</Card>
+
+					<Box sx={{ textAlign: 'center', py: 4 }}>
+						<Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
+							Let&apos;s Connect
+						</Typography>
+						<Button
+							variant="contained"
+							size="large"
+							startIcon={<EmailRoundedIcon />}
+							href="mailto:ingabiremelyne1234@gmail.com"
+							sx={{ borderRadius: 8, px: 3 }}
+						>
+							ingabiremelyne1234@gmail.com
+						</Button>
+						<Typography variant="body2" color="text.secondary" sx={{ mt: 3 }}>
+							Built with <RocketLaunchRoundedIcon sx={{ fontSize: 16, verticalAlign: 'middle' }} /> React,
+							Material UI, and Ant Design.
+						</Typography>
+					</Box>
+				</Container>
+			</Box>
+		</ThemeProvider>
 	)
 }
 
